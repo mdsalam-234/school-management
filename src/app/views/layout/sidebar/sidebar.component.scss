@@ -1,0 +1,20 @@
+.sidebar .sidebar-header {
+  background: linear-gradient(to right, #ff9d01, #ffaa01) !important;
+}
+.nobleui-logo {
+  color: #fff;
+}
+.sidebar .sidebar-header .sidebar-brand img {
+  height: 41px;
+}
+.sidebar .sidebar-body {
+  // background: #fff;
+  background-color: #042954;
+}
+
+.sidebar .sidebar-body .sidebar-nav .nav-item > .nav-link {
+  color: #9ea8b5;
+}
+.sidebar .sidebar-body .sidebar-nav .nav-item.mm-active > .nav-link .link-icon {
+  color: #ff9d01;
+}

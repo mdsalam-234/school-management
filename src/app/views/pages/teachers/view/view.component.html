@@ -1,0 +1,96 @@
+<div class="container">
+
+  <div class="d-flex justify-content-between">
+    <h4> About Me</h4>
+    <button nz-button nzType="primary"  routerLink="/teachers/">
+      <i nz-icon nzType="double-left"></i>
+      Back
+    </button>
+  </div>
+  <hr>
+
+  <nz-card [nzLoading]="loading">
+    <div class="row">
+      <div class="col-3">
+        <img class="img-rounded img-thumbnail" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+          width="100%" alt="user_img">
+      </div>
+      <div class="col-9">
+        <div class="d-flex justify-content-between">
+          <h3 class="text-dark-medium font-medium">{{teachers.name}}</h3>
+          <div class="p-2 bg-light cursor-pointer" [routerLink]="['/teachers/', 'edit', teachers.id]">
+            <i nz-icon nzType="edit" nzTheme="outline"></i>
+          </div>
+        </div>
+        <br>
+        <p>Aliquam erat volutpat. Curabiene natis massa sedde lacu stiquen sodale
+          word moun taiery.Aliquam erat volutpaturabiene natis massa sedde  sodale
+          word moun taiery.</p>
+        <div class="info-table table-responsive">
+          <table class="table text-nowrap">
+            <tbody>
+              <tr>
+                <td>Name:</td>
+                <td class="font-medium text-dark-medium">{{teachers.name || 'N/A'}}</td>
+              </tr>
+              <tr>
+                <td>Gender:</td>
+                <td class="font-medium text-dark-medium">{{teachers.gender || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>Father Name:</td>
+                <td class="font-medium text-dark-medium">{{teachers.father_name || 'N/A'}}</td>
+              </tr>
+              <tr>
+                <td>Mother Name:</td>
+                <td class="font-medium text-dark-medium">{{teachers.mother_name || 'N/A'}}</td>
+              </tr>
+              <tr>
+                <td>Date Of Birth:</td>
+                <td class="font-medium text-dark-medium">{{teachers.dob || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>Religion:</td>
+                <td class="font-medium text-dark-medium">{{teachers.religion || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>Subject:</td>
+                <td class="font-medium text-dark-medium">{{teachers.subject || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>E-mail:</td>
+                <td class="font-medium text-dark-medium">{{teachers.email || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>Joining Date:</td>
+                <td class="font-medium text-dark-medium">{{teachers.joining_date || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>Class:</td>
+                <td class="font-medium text-dark-medium">{{teachers.class || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>Section:</td>
+                <td class="font-medium text-dark-medium">{{teachers.section || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>ID Number:</td>
+                <td class="font-medium text-dark-medium">{{teachers.id_number || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>Address:</td>
+                <td class="font-medium text-dark-medium">{{teachers.address || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>Phone:</td>
+                <td class="font-medium text-dark-medium">{{teachers.phone || 'N/A' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </nz-card>
+
+
+</div>

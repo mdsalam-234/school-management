@@ -1,0 +1,133 @@
+<div class="container">
+
+  <div class="d-flex justify-content-between">
+    <h4>Edit details</h4>
+    <a href="#" routerLink="/students/" class="btn btn-primary">Back</a>
+  </div>
+
+  <hr>
+
+  <nz-spin nzTip="Loading..." [nzSpinning]="loading">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="form-group row py-2">
+        <div class="col-md-5">
+          <label for="title">Name:</label>
+          <input formControlName="name" id="name" type="text" class="form-control">
+          <div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
+            <div *ngIf="f.name.errors.required">*Name is required.</div>
+            <div *ngIf="f.name.errors.pattern">*The name must only contain letters.</div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <label for="title">Roll Number:</label>
+          <input formControlName="roll_number" id="roll_number" type="text" class="form-control">
+          <div *ngIf="f.roll_number.touched && f.roll_number.invalid" class="alert alert-danger">
+            <div *ngIf="f.roll_number.errors.required">*Roll number is required.</div>
+            <!-- <div *ngIf="f.roll_number.errors.pattern">*The name must only contain letters.</div> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row py-2">
+        <div class="col-md-5 ">
+          <label for="email">Email:</label>
+          <input formControlName="email" id="email" type="text" class="form-control">
+          <div *ngIf="f.email.touched && f.email.invalid" class="alert alert-danger">
+            <div *ngIf="f.email.errors.required">*Email is required.</div>
+            <div *ngIf="f.email.errors.email">*The email must be a valid email address.</div>
+          </div>
+        </div>
+        <div class="col-md-5 ">
+          <label for="phone">Phone:</label>
+          <input formControlName="phone" id="phone" type="text" class="form-control">
+          <div *ngIf="f.phone.touched && f.phone.invalid" class="alert alert-danger">
+            <div *ngIf="f.phone.errors.required">*Phone is required.</div>
+            <div *ngIf="f.phone.errors.pattern">*The phone must only contain numbers.</div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-group row py-2">
+        <div class="col-md-5">
+          <label for="gender">Gender:</label>
+          <input formControlName="gender" id="gender" type="text" class="form-control">
+          <div *ngIf="f.gender.touched && f.gender.invalid" class="alert alert-danger">
+            <div *ngIf="f.gender.errors.required">*Gender is required.</div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <label for="class">Class:</label>
+          <input formControlName="class" id="class" type="text" class="form-control">
+          <div *ngIf="f.class.touched && f.class.invalid" class="alert alert-danger">
+            <div *ngIf="f.class.errors.required">*Class is required.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-group row py-2">
+        <div class="col-md-5">
+          <label for="section">Section:</label>
+          <input formControlName="section" id="section" type="text" class="form-control">
+          <div *ngIf="f.section.touched && f.section.invalid" class="alert alert-danger">
+            <div *ngIf="f.section.errors.required">*Section is required.</div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <label for="dob">Date Of Birth:</label>
+          <input formControlName="dob" id="dob" type="date" class="form-control">
+          <div *ngIf="f.dob.touched && f.dob.invalid" class="alert alert-danger">
+            <div *ngIf="f.dob.errors.required">*Section is required.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row py-2">
+        <div class="col-md-5">
+          <label for="father_name">Father Name:</label>
+          <input formControlName="father_name" id="father_name" type="text" class="form-control">
+          <div *ngIf="f.father_name.touched && f.father_name.invalid" class="alert alert-danger">
+            <div *ngIf="f.father_name.errors.required">*Section is required.</div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <label for="mother_name">Mother Name:</label>
+          <input formControlName="mother_name" id="mother_name" type="text" class="form-control">
+          <div *ngIf="f.mother_name.touched && f.mother_name.invalid" class="alert alert-danger">
+            <div *ngIf="f.mother_name.errors.required">*Section is required.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row py-2">
+        <div class="col-md-5">
+          <label for="admission_date">Admission Date:</label>
+          <input formControlName="admission_date" id="admission_date" type="date" class="form-control">
+          <div *ngIf="f.admission_date.touched && f.admission_date.invalid" class="alert alert-danger">
+            <div *ngIf="f.admission_date.errors.required">*Admission date is required.</div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <label for="father_occupation">Father Occupation:</label>
+          <input formControlName="father_occupation" id="father_occupation" type="text" class="form-control">
+          <div *ngIf="f.father_occupation.touched && f.father_occupation.invalid" class="alert alert-danger">
+            <div *ngIf="f.father_occupation.errors.required">*Father is required.</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row py-2">
+        <div class="col-md-5">
+          <label for="religion">Religion:</label>
+          <input formControlName="religion" id="religion" type="text" class="form-control">
+          <div *ngIf="f.religion.touched && f.religion.invalid" class="alert alert-danger">
+            <div *ngIf="f.religion.errors.required">*Admission date is required.</div>
+          </div>
+        </div>
+      </div>
+
+
+      <button nzSize="large" nz-button nzType="primary" [nzLoading]="loading" [disabled]="!form.valid">Update</button>
+    </form>
+  </nz-spin>
+</div>

@@ -1,0 +1,96 @@
+<div class="container">
+
+  <div class="d-flex justify-content-between">
+    <h4> About Me</h4>
+    <button nz-button nzType="primary"  routerLink="/students/">
+      <i nz-icon nzType="double-left"></i>
+      Back
+    </button>
+  </div>
+  <hr>
+
+  <nz-card [nzLoading]="loading">
+    <div class="row">
+      <div class="col-3">
+        <img class="img-rounded img-thumbnail" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+          width="100%" alt="user_img">
+      </div>
+      <div class="col-9">
+        <div class="d-flex justify-content-between">
+          <h3 class="text-dark-medium font-medium">{{students.name}}</h3>
+          <div class="p-2 bg-light cursor-pointer" [routerLink]="['/students/', 'edit', students.id]">
+            <i nz-icon nzType="edit" nzTheme="outline"></i>
+          </div>
+        </div>
+        <br>
+        <p>Aliquam erat volutpat. Curabiene natis massa sedde lacu stiquen sodale
+          word moun taiery.Aliquam erat volutpaturabiene natis massa sedde  sodale
+          word moun taiery.</p>
+        <div class="info-table table-responsive">
+          <table class="table text-nowrap">
+            <tbody>
+              <tr>
+                <td>Name:</td>
+                <td class="font-medium text-dark-medium">{{students.name || 'N/A'}}</td>
+              </tr>
+              <tr>
+                <td>Gender:</td>
+                <td class="font-medium text-dark-medium">{{students.gender || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>Father Name:</td>
+                <td class="font-medium text-dark-medium">{{students.father_name || 'N/A'}}</td>
+              </tr>
+              <tr>
+                <td>Mother Name:</td>
+                <td class="font-medium text-dark-medium">{{students.mother_name || 'N/A'}}</td>
+              </tr>
+              <tr>
+                <td>Date Of Birth:</td>
+                <td class="font-medium text-dark-medium">{{students.dob || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>Religion:</td>
+                <td class="font-medium text-dark-medium">{{students.religion || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>Father Occupation:</td>
+                <td class="font-medium text-dark-medium">{{students.father_occupation || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>E-mail:</td>
+                <td class="font-medium text-dark-medium">{{students.email || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>Admission Date:</td>
+                <td class="font-medium text-dark-medium">{{students.admission_date || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>Class:</td>
+                <td class="font-medium text-dark-medium">{{students.class || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>Section:</td>
+                <td class="font-medium text-dark-medium">{{students.section || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>Roll:</td>
+                <td class="font-medium text-dark-medium">{{students.roll_number || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>Address:</td>
+                <td class="font-medium text-dark-medium">{{students.address || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>Phone:</td>
+                <td class="font-medium text-dark-medium">{{students.phone || 'N/A' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </nz-card>
+
+
+</div>

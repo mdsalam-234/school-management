@@ -1,0 +1,124 @@
+<section class="bg-white py-4">
+  <div class="air__utils__heading">
+    <div class="width-100p d-flex justify-content-between p-4">
+      <h3>Subject Management</h3>
+      <div class="d-flex">
+        <div class="ml-2 d-flex justify-content-end">
+          <button nz-button nzType="primary" routerLink="/subjects/create" class="m-1">
+            <i nz-icon nzType="plus"></i>
+            New
+          </button>
+          <div>
+            <a class="btn btn-light" nz-dropdown [nzDropdownMenu]="menu" [nzClickHide]="false" nzTrigger="click">
+              <i class="text-dark font-size-16" nz-icon nzType="ellipsis" nzTheme="outline"></i>
+            </a>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item (click)="reload()">Refresh</li>
+              </ul>
+            </nz-dropdown-menu>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <nz-table #filterTable nzShowSizeChanger [nzData]="datas" [nzFrontPagination]="false" [nzBordered]="false"
+          [nzLoading]="loading" [nzShowTotal]="pagenumtpl" nzTableLayout="fixed" [nzTotal]="total"
+          [(nzPageIndex)]="pageIndex" (nzPageIndexChange)="getLists()" (nzPageSizeChange)="pageSizeChange($event)"
+          [(nzPageSize)]="pageSize" class="air__utils__scrollTable mb-4 width-100p" [nzScroll]="{x : '100%'}"
+          [nzWidthConfig]="['50px','200px','200px','100px','100px']">
+          <!-- [nzWidthConfig]="['100px','200px','100px','100px','100px','100px','200px','150px']" -->
+          <thead>
+            <tr>
+              <th>Sno</th>
+              <th nzCustomFilter [nzSortFn]="true" (nzSortOrderChange)="sort($event,'subject_name')">
+                Subject
+                <nz-filter-trigger [nzActive]="filters['filter[subject_name-like]']" [nzDropdownMenu]="subject_name">
+                  <i nz-icon [nzTheme]="'fill'" nzType="filter"></i>
+                </nz-filter-trigger>
+              </th>
+              <th nzCustomFilter [nzSortFn]="true" (nzSortOrderChange)="sort($event,'subject_type')">
+                Subject Type
+                <nz-filter-trigger [nzActive]="filters['filter[subject_type-like]']" [nzDropdownMenu]="subject_type">
+                  <i nz-icon [nzTheme]="'fill'" nzType="filter"></i>
+                </nz-filter-trigger>
+              </th>
+              <th nzCustomFilter [nzSortFn]="true" (nzSortOrderChange)="sort($event,'class')">
+                Class
+                <nz-filter-trigger [nzActive]="filters['filter[class-like]']" [nzDropdownMenu]="class">
+                  <i nz-icon [nzTheme]="'fill'" nzType="filter"></i>
+                </nz-filter-trigger>
+              </th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of filterTable.data; let i = index">
+              <td> {{i+1}} </td>
+              <td [nzEllipsis]="true">{{data.subject_name}}</td>
+              <td>{{data.subject_type}}</td>
+              <td>{{data.class}}</td>
+              <td>
+                <nz-button-group>
+                  <button [routerLink]="['/subjects/', 'view', data.id]" nz-button nz-tooltip nzTooltipTitle="View"
+                    nzType="primary"><i nz-icon nzType="eye"></i></button>
+                  <button [routerLink]="['/subjects/', 'edit', data.id]" nz-button nz-tooltip nzTooltipTitle="Edit"
+                    nzType="primary" nzInfo><i nz-icon nzType="edit"></i></button>
+                  <button nz-popconfirm nzPopconfirmTitle="Are you sure delete this task?"
+                    (nzOnConfirm)="deletePerson(data.id)" nz-button nz-tooltip nzTooltipTitle="Delete" nzType="primary"
+                    nzDanger><i nz-icon nzType="delete"></i></button>
+                </nz-button-group>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+        <ng-template #pagenumtpl let-pagetotal>
+          <div>
+            Showing total <strong>{{pagetotal}}</strong> Records
+          </div>
+        </ng-template>
+        <nz-dropdown-menu #subject_name="nzDropdownMenu">
+          <div class="ant-table-filter-dropdown">
+            <div class="search-box">
+              <input type="text" nz-input placeholder="Filter by Subject Name" (keyup.enter)="search()"
+                [(ngModel)]="filters['filter[subject_name-like]']" />
+              <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+                Filter
+              </button>
+              <button nz-button nzSize="small" type="button" (click)="reset()">Reset</button>
+            </div>
+          </div>
+        </nz-dropdown-menu>
+        <nz-dropdown-menu #subject_type="nzDropdownMenu">
+          <div class="ant-table-filter-dropdown">
+            <div class="search-box">
+              <input type="text" nz-input placeholder="Filter by Subject Type" (keyup.enter)="search()"
+                [(ngModel)]="filters['filter[subject_type-like]']" />
+              <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+                Filter
+              </button>
+              <button nz-button nzSize="small" type="button" (click)="reset()">Reset</button>
+            </div>
+          </div>
+        </nz-dropdown-menu>
+        <nz-dropdown-menu #class="nzDropdownMenu">
+          <div class="ant-table-filter-dropdown">
+            <div class="search-box">
+              <input type="text" nz-input placeholder="Filter by Class" (keyup.enter)="search()"
+                [(ngModel)]="filters['filter[class-like]']" />
+              <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+                Filter
+              </button>
+              <button nz-button nzSize="small" type="button" (click)="reset()">Reset</button>
+            </div>
+          </div>
+        </nz-dropdown-menu>
+      </div>
+    </div>
+  </div>
+
+
+</section>

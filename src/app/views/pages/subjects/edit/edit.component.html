@@ -1,0 +1,40 @@
+<div class="container">
+
+  <div class="d-flex justify-content-between">
+    <h4>Edit details</h4>
+    <a href="#" routerLink="/subjects/" class="btn btn-primary">Back</a>
+  </div>
+
+  <hr>
+  <nz-spin nzTip="Loading..." [nzSpinning]="loading">
+    <div class="card">
+      <div class="card-body">
+        <form nz-form [formGroup]="form" (ngSubmit)="submit()">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="7" nzRequired>Subject name</nz-form-label>
+            <nz-form-control [nzSpan]="12" nzErrorTip="The input is required!">
+              <input nz-input formControlName="subject_name" placeholder="Subject Name" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="7" nzRequired>Subject Type</nz-form-label>
+            <nz-form-control [nzSpan]="12" nzErrorTip="The input is required!">
+              <input nz-input formControlName="subject_type" placeholder="Subject Type" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="7" nzRequired>Class</nz-form-label>
+            <nz-form-control [nzSpan]="12" nzErrorTip="The input is required!">
+              <input nz-input formControlName="class" placeholder="Class" type="text" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control [nzOffset]="7" [nzSpan]="12">
+              <button nz-button nzType="primary" [nzLoading]="loading" [disabled]="!form.valid">Submit</button>
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+      </div>
+    </div>
+  </nz-spin>
+</div>

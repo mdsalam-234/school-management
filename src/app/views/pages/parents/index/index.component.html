@@ -1,0 +1,193 @@
+<section class="bg-white py-4">
+  <div class="air__utils__heading">
+    <div class="width-100p d-flex justify-content-between p-4">
+      <h5>Parent Management</h5>
+      <div class="d-flex">
+        <div class="ml-2 d-flex justify-content-end">
+          <button nz-button nzType="primary" routerLink="/parents/create" class="m-1">
+            <i nz-icon nzType="plus"></i>
+            New
+          </button>
+          <div>
+            <a class="btn btn-light" nz-dropdown [nzDropdownMenu]="menu" [nzClickHide]="false" nzTrigger="click">
+              <i class="text-dark font-size-16" nz-icon nzType="ellipsis" nzTheme="outline"></i>
+            </a>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item (click)="reload()">Refresh</li>
+              </ul>
+            </nz-dropdown-menu>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <nz-table #filterTable nzShowSizeChanger [nzData]="datas" [nzFrontPagination]="false" [nzBordered]="false"
+          [nzLoading]="loading" [nzShowTotal]="pagenumtpl" nzTableLayout="fixed" [nzTotal]="total"
+          [(nzPageIndex)]="pageIndex" (nzPageIndexChange)="getLists()" (nzPageSizeChange)="pageSizeChange($event)"
+          [(nzPageSize)]="pageSize" class="air__utils__scrollTable mb-4 width-100p" [nzScroll]="{x : '100%'}"
+          [nzWidthConfig]="['100px','150px','100px','120px','120px','120px']">
+          <!-- [nzWidthConfig]="['100px','200px','100px','100px','100px','100px','200px','150px']" -->
+          <thead>
+            <tr>
+              <th nzCustomFilter [nzSortFn]="true" (nzSortOrderChange)="sort($event,'id_number')">
+                Roll
+                <nz-filter-trigger [nzActive]="filters['filter[id_number-like]']" [nzDropdownMenu]="id_number">
+                  <i nz-icon [nzTheme]="'fill'" nzType="filter"></i>
+                </nz-filter-trigger>
+              </th>
+              <th nzCustomFilter [nzSortFn]="true" (nzSortOrderChange)="sort($event,'name')">
+                Name
+                <nz-filter-trigger [nzActive]="filters['filter[name-like]']" [nzDropdownMenu]="name">
+                  <i nz-icon [nzTheme]="'fill'" nzType="filter"></i>
+                </nz-filter-trigger>
+              </th>
+              <th nzCustomFilter [nzSortFn]="true" (nzSortOrderChange)="sort($event,'gender')">
+                Gender
+                <nz-filter-trigger [nzActive]="filters['filter[gender-like]']" [nzDropdownMenu]="gender">
+                  <i nz-icon [nzTheme]="'fill'" nzType="filter"></i>
+                </nz-filter-trigger>
+              </th>
+
+              <th nzCustomFilter [nzSortFn]="true" (nzSortOrderChange)="sort($event,'email')">
+                Email
+                <nz-filter-trigger [nzActive]="filters['filter[email-like]']" [nzDropdownMenu]="email">
+                  <i nz-icon [nzTheme]="'fill'" nzType="filter"></i>
+                </nz-filter-trigger>
+              </th>
+              <th nzCustomFilter [nzSortFn]="true" (nzSortOrderChange)="sort($event,'phone')">
+                Phone
+                <nz-filter-trigger [nzActive]="filters['filter[phone-like]']" [nzDropdownMenu]="phone">
+                  <i nz-icon [nzTheme]="'fill'" nzType="filter"></i>
+                </nz-filter-trigger>
+              </th>
+              <!-- <th [nzSortFn]="true" (nzSortOrderChange)="sort($event,'created_at')" nzCustomFilter>Created Date
+          <nz-filter-trigger [nzActive]="searchdate2.length" [nzDropdownMenu]="date2">
+            <i nz-icon [nzTheme]="'fill'" nzType="filter"></i>
+          </nz-filter-trigger>
+        </th> -->
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of filterTable.data">
+              <td [nzEllipsis]="true">{{data.id_number}}</td>
+              <td [nzEllipsis]="true">{{data.name}}</td>
+              <td [nzEllipsis]="true">{{data.gender}}</td>
+              <td [nzEllipsis]="true">{{data.email}}</td>
+              <td [nzEllipsis]="true">{{data.phone}}</td>
+              <!-- <td [nzEllipsis]="true">{{data.created_at}}</td> -->
+              <td>
+                <nz-button-group>
+                  <button [routerLink]="['/parents/', 'view', data.id]" nz-button nz-tooltip nzTooltipTitle="View"
+                    nzType="primary"><i nz-icon nzType="eye"></i></button>
+                  <button [routerLink]="['/parents/', 'edit', data.id]" nz-button nz-tooltip nzTooltipTitle="Edit"
+                    nzType="primary" nzInfo><i nz-icon nzType="edit"></i></button>
+                  <button nz-popconfirm nzPopconfirmTitle="Are you sure delete this task?"
+                    (nzOnConfirm)="deletePerson(data.id)" nz-button nz-tooltip nzTooltipTitle="Delete" nzType="primary"
+                    nzDanger><i nz-icon nzType="delete"></i></button>
+
+                </nz-button-group>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+        <ng-template #pagenumtpl let-pagetotal>
+          <div>
+            Showing total <strong>{{pagetotal}}</strong> Records
+          </div>
+        </ng-template>
+        <nz-dropdown-menu #date1="nzDropdownMenu">
+          <div class="ant-table-filter-dropdown">
+            <div class="search-box">
+              <div class="mb-3">
+                <nz-range-picker [(ngModel)]="searchdate1"></nz-range-picker>
+              </div>
+              <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+                Filter
+              </button>
+              <button nz-button nzSize="small" type="button" (click)="reset()">Reset</button>
+            </div>
+          </div>
+        </nz-dropdown-menu>
+        <nz-dropdown-menu #date2="nzDropdownMenu">
+          <div class="ant-table-filter-dropdown">
+            <div class="search-box">
+              <div class="mb-3">
+                <nz-range-picker [(ngModel)]="searchdate2"></nz-range-picker>
+              </div>
+              <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+                Filter
+              </button>
+              <button nz-button nzSize="small" type="button" (click)="reset()">Reset</button>
+            </div>
+          </div>
+        </nz-dropdown-menu>
+        <nz-dropdown-menu #id_number="nzDropdownMenu">
+          <div class="ant-table-filter-dropdown">
+            <div class="search-box">
+              <input type="text" nz-input placeholder="Filter by Roll number" (keyup.enter)="search()"
+                [(ngModel)]="filters['filter[id_number-like]']" />
+              <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+                Filter
+              </button>
+              <button nz-button nzSize="small" type="button" (click)="reset()">Reset</button>
+            </div>
+          </div>
+        </nz-dropdown-menu>
+        <nz-dropdown-menu #name="nzDropdownMenu">
+          <div class="ant-table-filter-dropdown">
+            <div class="search-box">
+              <input type="text" nz-input placeholder="Filter by name" (keyup.enter)="search()"
+                [(ngModel)]="filters['filter[name-like]']" />
+              <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+                Filter
+              </button>
+              <button nz-button nzSize="small" type="button" (click)="reset()">Reset</button>
+            </div>
+          </div>
+        </nz-dropdown-menu>
+        <nz-dropdown-menu #gender="nzDropdownMenu">
+          <div class="ant-table-filter-dropdown">
+            <div class="search-box">
+              <input type="text" nz-input placeholder="Filter by gender" (keyup.enter)="search()"
+                [(ngModel)]="filters['filter[gender-like]']" />
+              <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+                Filter
+              </button>
+              <button nz-button nzSize="small" type="button" (click)="reset()">Reset</button>
+            </div>
+          </div>
+        </nz-dropdown-menu>
+
+        <nz-dropdown-menu #email="nzDropdownMenu">
+          <div class="ant-table-filter-dropdown">
+            <div class="search-box">
+              <input type="text" nz-input placeholder="Filter by email" (keyup.enter)="search()"
+                [(ngModel)]="filters['filter[email-like]']" />
+              <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+                Filter
+              </button>
+              <button nz-button nzSize="small" type="button" (click)="reset()">Reset</button>
+            </div>
+          </div>
+        </nz-dropdown-menu>
+        <nz-dropdown-menu #phone="nzDropdownMenu">
+          <div class="ant-table-filter-dropdown">
+            <div class="search-box">
+              <input type="text" nz-input placeholder="Filter by phone" (keyup.enter)="search()"
+                [(ngModel)]="filters['filter[phone-like]']" />
+              <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+                Filter
+              </button>
+              <button nz-button nzSize="small" type="button" (click)="reset()">Reset</button>
+            </div>
+          </div>
+        </nz-dropdown-menu>
+      </div>
+    </div>
+  </div>
+</section>
